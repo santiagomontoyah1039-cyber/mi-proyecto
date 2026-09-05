@@ -1,0 +1,677 @@
+/* ==========================================================================
+   1. RESETEO Y VARIABLES GLOBALES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+:root {
+    --bg-dark: #0b0c10;
+    --bg-card: #1f2833;
+    --bg-card-alt: #0f1117;
+    --accent-green: #00ff66;
+    --accent-cyan: #00f0ff;
+    --text-white: #ffffff;
+    --text-muted: #c5c6c7;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Mejora la fluidez del desplazamiento en pantallas de alta tasa de refresco (144Hz / 240Hz) */
+    scroll-padding-top: 80px; /* Evita que el menú fijo tape el título al bajar */
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   2. BARRA DE NAVEGACIÓN (NAVBAR)
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background: rgba(11, 12, 16, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 255, 102, 0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--accent-green);
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.navbar a {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--accent-green);
+}
+
+.cart-icon {
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--bg-card);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-green);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cart-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+}
+
+.cart-count {
+    color: var(--accent-green);
+}
+
+/* ==========================================================================
+   3. SECCIÓN PRINCIPAL (HERO SECTION)
+   ========================================================================== */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 10% 0 10%;
+    background: radial-gradient(circle at center, #1f2833 0%, #0b0c10 80%);
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.tag {
+    color: var(--accent-green);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.2rem;
+    margin: 15px 0;
+    line-height: 1.2;
+}
+
+.hero h1 span {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--accent-green);
+    color: #000000;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 15px var(--accent-green);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.btn-secondary:hover {
+    background-color: var(--accent-cyan);
+    color: #000000;
+    box-shadow: 0 0 15px var(--accent-cyan);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   4. SECCIÓN CATEGORÍAS
+   ========================================================================== */
+.categories {
+    padding: 100px 8%;
+    text-align: center;
+}
+
+.categories h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+}
+
+.categories h2 span {
+    color: var(--accent-green);
+}
+
+.grid-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.card-cat {
+    background: var(--bg-card);
+    padding: 35px 25px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-cat:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-green);
+    box-shadow: 0 10px 20px rgba(0, 255, 102, 0.1);
+}
+
+.card-cat h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
+.card-cat p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* ==========================================================================
+   5. CATÁLOGO DE PRODUCTOS
+   ========================================================================== */
+.products-section {
+    padding: 80px 8%;
+    background-color: var(--bg-card-alt);
+    text-align: center;
+}
+
+.products-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+}
+
+.products-section h2 span {
+    color: var(--accent-cyan);
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+}
+
+.grid-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    transform: translateY(-5px);
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 240, 255, 0.15);
+    color: var(--accent-cyan);
+    border: 1px solid var(--accent-cyan);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+.product-img-wrapper {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-color: #0d0d11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+    transform: scale(1.08);
+}
+
+.product-info {
+    flex-grow: 1;
+}
+
+.product-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--text-white);
+}
+
+.specs {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+.btn-add {
+    background: transparent;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    padding: 8px 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    background: var(--accent-green);
+    color: #000000;
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+/* ==========================================================================
+   6. DISEÑO ADAPTABLE (RESPONSIVE)
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+/* ==========================================================================
+   7. SECCIÓN QUIÉNES SOMOS (SOBRE ZONA X)
+   ========================================================================== */
+.about-section {
+    padding: 100px 8%;
+    background-color: var(--bg-card-alt);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-text h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.about-text h2 span {
+    color: var(--accent-green);
+}
+
+.about-text p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.grid-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 102, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-green);
+}
+
+.feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    color: var(--text-white);
+    margin-bottom: 5px;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   8. SECCIÓN TORRES & LAPTOPS
+   ========================================================================== */
+.builds-section {
+    padding: 80px 8%;
+    text-align: center;
+}
+
+.builds-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+}
+
+.builds-section h2 span {
+    color: var(--accent-green);
+}
+
+/* ==========================================================================
+   9. FOOTER / PIE DE PÁGINA
+   ========================================================================== */
+.footer {
+    background: #07080a;
+    padding: 60px 8% 20px 8%;
+    border-top: 1px solid rgba(0, 255, 102, 0.2);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h4 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent-green);
+    margin-bottom: 18px;
+    font-size: 1.1rem;
+}
+
+.footer-col p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+    color: var(--accent-cyan);
+}
+
+.payment-methods span {
+    display: block;
+    background: var(--bg-card);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 768px) {
+    .about-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-features {
+        grid-template-columns: 1fr;
+    }
+}
+/* ==========================================================================
+   10. MODAL DEL CARRITO SLIDE-OVER
+   ========================================================================== */
+.cart-modal {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    transition: right 0.4s ease;
+}
+
+.cart-modal.open {
+    right: 0;
+}
+
+.cart-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    background: var(--bg-card-alt);
+    border-left: 1px solid var(--accent-green);
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.cart-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+}
+
+.cart-header h2 span {
+    color: var(--accent-green);
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--accent-green);
+}
+
+.cart-items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+.empty-msg {
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 40px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cart-item-info h4 {
+    font-size: 1rem;
+    color: var(--text-white);
+}
+
+.cart-item-info span {
+    color: var(--accent-green);
+    font-weight: 700;
+}
+
+.remove-btn {
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+}
+
+.cart-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.cart-total span:nth-child(2) {
+    color: var(--accent-green);
+}
+
+.btn-checkout {
+    width: 100%;
+    background: var(--accent-green);
+    color: #000;
+    border: none;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-checkout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--accent-green);
+}
